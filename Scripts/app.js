@@ -39,6 +39,8 @@ var lastMouseX = 0;
 var lastMouseY = 0;
 var mouseDown = false;
 
+var testGameObject;
+
 var RunProgram = function(vertexShaderText, fragmentShaderText)
 {
 	console.log('This is working');
@@ -111,6 +113,9 @@ var RunProgram = function(vertexShaderText, fragmentShaderText)
 	var light02ColorUniformLocation = gl.getUniformLocation(program, 'light02.color');
 	var light02IntUniformLocation = gl.getUniformLocation(program, 'light02.intensity');
 	var light02RangeUniformLication = gl.getUniformLocation(program, 'light02.range');
+
+	testGameObject = new GameObject();
+	CreateObjFromJSONfile("./Susan.json", testGameObject);
 
 	//Camera uniforms
 	var camPosUniformLocation = gl.getUniformLocation(program, 'eye');
@@ -214,10 +219,6 @@ var RunProgram = function(vertexShaderText, fragmentShaderText)
 	var loop = function()
 	{
 
-		//lights[0].transform.SetPosition(camera.transform.pos[0],camera.transform.pos[1], camera.transform.pos[2]);
-
-		console.log("Light: " + lights[0].transform.pos);
-		console.log("Camera: " + camera.transform.pos);
 
 		// Fit the canvas to the whole browser window
 		resize(gl.canvas);
@@ -270,18 +271,6 @@ var RunProgram = function(vertexShaderText, fragmentShaderText)
 			RenderObject(gameObjects[i]);
 		}
 
-		//Enable blending for particles
-		gl.enable(gl.BLEND);
-
-		for(i = 0; i < particles.length; i++)
-		{
-			var pos = particles[i].transform.pos;
-			particles[i].transform.Translate(0, -particles[i].yVelocity, 0);
-			if(pos[1] < 0)
-				particles[i].transform.pos[1] = Math.random() * 2 + 10;
-			RenderObject(particles[i]);
-		}
-		gl.disable(gl.BLEND);
 		requestAnimationFrame(loop);
 	};
 	requestAnimationFrame(loop);

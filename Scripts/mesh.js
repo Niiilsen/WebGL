@@ -1,8 +1,7 @@
 //The mesh holds a material and a meshbase containing bufferobjects
-function Mesh(typeOfMesh, shader)
+function Mesh(meshbase)
 {
-	this.meshbase = new MeshBase();
-	this.meshbase.CreateBlock(typeOfMesh);
+	this.meshbase = meshbase;
 
 	this.material = new Material();
 }

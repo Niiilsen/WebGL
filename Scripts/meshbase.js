@@ -1,7 +1,7 @@
 //MeshBase is the render object
 //It holds all the bufferObjects for an object
 
-function MeshBase()
+function MeshBase(vertices, normals, tangents, indices, uvs)
 {
 	this.indicesLength;
 	
@@ -10,37 +10,31 @@ function MeshBase()
 	this.tangentBufferObject;
 	this.texCoordBufferObject;
 	this.indexBufferObject;
+	this.Init(vertices, normals, tangents, indices, uvs);
 }
 
-MeshBase.prototype.CreateBlock = function(typeOfBlock)
-{
-	this.Init(typeOfBlock);
-}
-
-MeshBase.prototype.Init = function (typeOfBlock)
+MeshBase.prototype.Init = function (vertices, normals, tangents, indices, uvs)
 {
 	//Create vertex buffer object and bind it
 	this.vertexBufferObject = gl.createBuffer();
 	gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexBufferObject);
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(CreateBoxVertices()), gl.STATIC_DRAW); //What the bufferobject contains
+	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW); //What the bufferobject contains
 
 	//Create vertex buffer object and bind it
 	this.normalBufferObject = gl.createBuffer();
 	gl.bindBuffer(gl.ARRAY_BUFFER, this.normalBufferObject);
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(CreateBoxNormals()), gl.STATIC_DRAW); //What the bufferobject contains
+	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(normals), gl.STATIC_DRAW); //What the bufferobject contains
 
 	// //Create vertex buffer object and bind it
 	this.tangentBufferObject = gl.createBuffer();
 	gl.bindBuffer(gl.ARRAY_BUFFER, this.tangentBufferObject);
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(CreateBoxTangents()), gl.STATIC_DRAW); //What the bufferobject contains
-
+	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(tangents), gl.STATIC_DRAW); //What the bufferobject contains
 
 	// Create TextureCoord buffer object and bind it
 	this.texCoordBufferObject = gl.createBuffer();
 	gl.bindBuffer(gl.ARRAY_BUFFER, this.texCoordBufferObject);
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(CreateBoxTexCoords(typeOfBlock)), gl.STATIC_DRAW);
+	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(uvs), gl.STATIC_DRAW);
 
-	var indices = CreateBoxIndices();
 	this.indicesLength = indices.length;
 	//Create Index buffer object and bind it
 	this.indexBufferObject = gl.createBuffer();

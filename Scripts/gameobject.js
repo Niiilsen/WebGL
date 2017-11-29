@@ -1,6 +1,6 @@
-function GameObject(mesh, pos = [0,0,0], rot = [0,0,0], scale = [1,1,1])
+function GameObject(pos = [0,0,0], rot = [0,0,0], scale = [1,1,1])
 {
-	this.mesh = mesh;
+	this.mesh = 0;
 	this.transform = new Transform();
 	this.transform.SetPosition(pos[0], pos[1], pos[2]);
 	this.transform.SetRotation(rot[0], rot[1], rot[2]);

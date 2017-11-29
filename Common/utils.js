@@ -19,18 +19,19 @@ var loadImage = function (url, callback) {
 	image.src = url;
 };
 
-var loadJSONResource = function (url, callback) {
+var loadJSONResource = function (url, gameObject, callback) {
 	loadTextResource(url, function (err, result) {
 		if (err) {
 			callback(err);
 		} else {
 			try {
-				callback(null, JSON.parse(result));
+				callback(null, JSON.parse(result), gameObject);
 			} catch (e) {
 				callback(e);
 			}
 		}
 	});
 };
+
 
 
